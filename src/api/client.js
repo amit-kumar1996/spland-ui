@@ -29,4 +29,24 @@ export const api = {
     addComment: (type, id, body) => req(`/api/comments/${type}/${id}`, { method: "POST", body: { body }, auth: true }),
     // chat
     chat: (message) => req("/api/chat", { method: "POST", body: { message } }),
+
+    //owner writes (Dashboard)
+    saveProfile: (data) => req("/api/profile", { method: "PUT", body: data, auth: true }),
+    createProject: (data) => req("/api/projects", { method: "POST", body: data, auth: true }),
+    updateProject: (id, data) => req(`/api/projects/${id}`, { method: "PUT", body: data, auth: true }),
+    deleteProject: (id) => req(`/api/projects/${id}`, { method: "DELETE", auth: true }),
+    createBlog: (data) => req("/api/blog", { method: "POST", body: data, auth: true }),
+    updateBlog: (id, data) => req(`/api/blog/${id}`, { method: "PUT", body: data, auth: true }),
+    deleteBlog: (id) => req(`/api/blog/${id}`, { method: "DELETE", auth: true }),
+
+    //resume upload
+    uploadResume: async (file, label) => {
+        const fd = new FormData();
+        fd.append("file", file);
+        if (label) fd.append("label", label);
+        const headers = token() ? { Authorization: `Bearer ${token()}` } : {};
+        const res = await fetch(`${BASE}/api/resume`, { method: "POST", headers, body: fd });
+        if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error || res.statusText);
+        return res.json();
+    }
 };
