@@ -8,7 +8,6 @@ import Projects from './pages/Projects'
 import Blog from './pages/Blog'
 import BlogRead from './pages/BlogRead'
 import Contact from './pages/Contact'
-import "./App.css"
 
 function App() {
   return (
@@ -22,6 +21,7 @@ function App() {
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogRead />} />
           <Route path="/contact" element={<Contact />} />
+          {/* <Route path="/dashboard" element={<Dashboard />} /> */}
         </Routes>
         <Chatbot />
       </BrowserRouter>
